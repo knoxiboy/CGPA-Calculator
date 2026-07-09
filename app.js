@@ -1,15 +1,3 @@
-/**
- * GPA/CGPA Calculator Application
- * A pure JavaScript application for calculating semester GPA and cumulative CGPA
- * 
- * Module Structure:
- * - GRADE_POINTS: Grade to numeric value conversion
- * - STORAGE_KEY: localStorage key for data persistence
- * - DataManager: State management and persistence
- * - Calculator: Calculation and validation logic
- * - UIController: User interface management and rendering
- */
-
 // ============================================
 // 1. CONSTANTS AND CONFIGURATION
 // ============================================
