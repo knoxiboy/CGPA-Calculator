@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="GPA/CGPA Calculator - Track your academic performance across semesters with this easy-to-use web application.">
+    <meta name="theme-color" content="#4A90E2">
+    <title>GPA/CGPA Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Skip to content link for keyboard navigation -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header Section -->
+    <header role="banner">
+        <h1>GPA/CGPA Calculator</h1>
+        <p class="subtitle">Track your academic performance across semesters</p>
+    </header>
+
+    <!-- Main Container -->
+    <main class="container" id="main-content" role="main" aria-label="GPA Calculator Application">
+        <!-- CGPA Display Panel -->
+        <section class="cgpa-panel" aria-label="Cumulative GPA Display" role="region">
+            <div class="cgpa-display">
+                <span class="cgpa-label" id="cgpa-label">Cumulative CGPA:</span>
+                <span class="cgpa-value" id="cgpa" aria-live="polite" aria-label="Cumulative CGPA value">0.00</span>
+            </div>
+            <div class="mode-indicator" id="whatIfIndicator" style="display: none;" role="status" aria-live="assertive">What-If Mode Active</div>
+        </section>
+
+        <!-- Controls Section -->
+        <section class="controls" aria-label="Application Controls">
+            <button id="addSemesterBtn" class="btn btn-primary" aria-label="Add a new semester to the calculator">Add Semester</button>
+            <button id="whatIfBtn" class="btn btn-secondary" aria-label="Toggle what-if simulation mode to plan hypothetical grades">What-If Mode</button>
+            <button id="exportBtn" class="btn btn-secondary" aria-label="Export your data as a JSON file for backup">Export Data</button>
+            <button id="importBtn" class="btn btn-secondary" aria-label="Import previously saved data from a JSON file">Import Data</button>
+            <button id="clearAllBtn" class="btn btn-danger" aria-label="Permanently delete all data and reset to default state">Clear All Data</button>
+            <input type="file" id="fileInput" accept=".json" style="display: none;" aria-label="File input for importing data">
+        </section>
+
+        <!-- Semester Tabs -->
+        <section class="semester-tabs" id="semesterTabs" role="tablist" aria-label="Semester navigation tabs"></section>
+
+        <!-- Active Semester Content -->
+        <section class="semester-content" aria-label="Current semester details and subject management">
+            <!-- Semester Info -->
+            <div class="semester-info">
+                <h2 id="semesterTitle" role="heading" aria-level="2">Semester 1</h2>
+                <button id="deleteSemesterBtn" class="btn btn-danger-outline" aria-label="Delete the currently active semester">Delete Semester</button>
+            </div>
+
+            <!-- Subject Entry Form -->
+            <div class="subject-form" role="region" aria-labelledby="add-subject-heading">
+                <h3 id="add-subject-heading">Add Subject</h3>
+                <div id="errorMessage" class="error-message" style="display: none;" role="alert" aria-live="assertive"></div>
+                <form onsubmit="return false;">
+                    <div class="form-group">
+                        <label for="subjectName" aria-required="true">Subject Name</label>
+                        <input type="text" id="subjectName" placeholder="e.g., Mathematics" aria-describedby="name-help" required>
+                        <small id="name-help" class="form-help">Enter the name of the subject or course</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="subjectCredits" aria-required="true">Credits (1-10)</label>
+                        <input type="number" id="subjectCredits" min="1" max="10" placeholder="e.g., 3" aria-describedby="credits-help" required>
+                        <small id="credits-help" class="form-help">Enter credit hours between 1 and 10</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="subjectGrade" aria-required="true">Grade</label>
+                        <select id="subjectGrade" aria-describedby="grade-help" required>
+                            <option value="">Select Grade</option>
+                            <option value="O">O (10.0)</option>
+                            <option value="A+">A+ (9.0)</option>
+                            <option value="A">A (8.0)</option>
+                            <option value="B+">B+ (7.0)</option>
+                            <option value="B">B (6.0)</option>
+                            <option value="C">C (5.0)</option>
+                            <option value="D">D (4.0)</option>
+                            <option value="F">F (0.0)</option>
+                        </select>
+                        <small id="grade-help" class="form-help">Select the grade received for this subject</small>
+                    </div>
+                    <button id="addSubjectBtn" class="btn btn-primary" type="button" aria-label="Submit and add the subject to current semester">Add Subject</button>
+                </form>
+            </div>
+
+            <!-- Subjects List -->
+            <div class="subjects-section" role="region" aria-labelledby="subjects-heading">
+                <h3 id="subjects-heading">Subjects</h3>
+                <div id="subjectList" class="subjects-list" role="list" aria-label="List of subjects for current semester"></div>
+                <div class="gpa-display" role="status" aria-label="Semester GPA display">
+                    <span class="gpa-label">Semester GPA:</span>
+                    <span class="gpa-value" id="semesterGPA" aria-live="polite">0.00</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmModal" class="modal" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-message">
+        <div class="modal-content">
+            <h3 class="modal-title" id="modal-title">Confirm Action</h3>
+            <p class="modal-message" id="modal-message">Are you sure?</p>
+            <div class="modal-buttons">
+                <button class="confirm-btn btn btn-primary" aria-label="Confirm the action">Confirm</button>
+                <button class="cancel-btn btn btn-secondary" aria-label="Cancel and close the dialog">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
